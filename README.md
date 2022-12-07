@@ -10,8 +10,14 @@ Explore a full, working code sample of an integration with Stripe Checkout and C
 npm install
 ~~~
 
-2. Add or update price items by editing create_price.js and running `node create_price.js`
-   
+1. Add or update price items by editing create_price.js and running
+
+~~~
+node create_price.js
+~~~
+
+- Update checkout.html to include a new product and form element related with the `price_id` you just created.
+
 3. Run the server
 
 ~~~
