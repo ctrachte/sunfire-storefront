@@ -10,6 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "stripe": "^8.202.0"
+    "stripe": "^8.202.0",
+    "tw-elements": "^1.0.0-alpha13"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
   }
 }
