@@ -1,7 +1,7 @@
 // This is a public sample test API key.
 // Don’t submit any personally identifiable information in requests made with this key.
 // Sign in to see your own test API key embedded in code samples.
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const stripe = require('stripe')('sk_test_U68vkbnSn99gjqwhOQHA7TBx');
 const express = require('express');
 const app = express();
 app.use(express.static('public'));
@@ -33,6 +33,40 @@ app.post('/create-checkout-session', async (req, res) => {
   });
 
   res.redirect(303, session.url);
+});
+
+app.get('/links', async (req, res) => {
+  // const prices = [];
+  // const products = [];
+  // await stripe.products.create({
+  //     name: 'Starter Subscription',
+  //     description: '$15/Month subscription',
+  //   }).then(product => {
+  //     stripe.prices.create({
+  //       unit_amount: 1500,
+  //       currency: 'usd',
+  //       recurring: {
+  //         interval: 'month',
+  //       },
+  //       product: product.id,
+  //     }).then(price => {
+  //       products.push(product);
+  //       prices.push(price)
+  //     });
+  //   });
+  // // create links for catalogue
+  // prices.map(async (price) => {
+  //     await stripe.paymentLinks.create({
+  //         line_items: [{price: price.id, quantity: 1}],
+  //       }).then((link)=>{
+  //         links.push(link);
+  //       });
+  // });
+
+  const links = await stripe.paymentLinks.list({ limit: 3,});
+  const products = await stripe.products.list({limit:3});
+  const prices = await stripe.prices.list({limit:3});
+  res.json({links: links.data, products: products.data, prices:prices.data});
 });
 
 app.post('/create-portal-session', async (req, res) => {
@@ -119,5 +153,4 @@ app.post(
     response.send();
   }
 );
-
 app.listen(4242, () => console.log('Running on port 4242'));

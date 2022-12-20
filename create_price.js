@@ -1,11 +1,10 @@
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-
+const stripe = require('stripe')('sk_test_U68vkbnSn99gjqwhOQHA7TBx');
 stripe.products.create({
   name: 'Starter Subscription',
-  description: '$12/Month subscription',
+  description: '$15/Month subscription',
 }).then(product => {
   stripe.prices.create({
-    unit_amount: 1200,
+    unit_amount: 1500,
     currency: 'usd',
     recurring: {
       interval: 'month',
