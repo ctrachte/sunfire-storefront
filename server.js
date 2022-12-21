@@ -1,6 +1,5 @@
-// This is a public sample test API key.
-// Don’t submit any personally identifiable information in requests made with this key.
-// Sign in to see your own test API key embedded in code samples.
+// Sign in to see your own test API key embedded in code samples. 
+// Create a .env file that contains your stripe secret and test keys. https://www.npmjs.com/package/dotenv
 require('dotenv').config();
 let stripe;
 if (process.env.NODE_ENV !== 'production') {

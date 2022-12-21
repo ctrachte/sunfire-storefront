@@ -1,4 +1,10 @@
-const stripe = require('stripe')('sk_test_U68vkbnSn99gjqwhOQHA7TBx');
+require('dotenv').config();
+let stripe;
+if (process.env.NODE_ENV !== 'production') {
+  stripe = require('stripe')(process.env.TEST_KEY);
+} else {
+  stripe = require('stripe')(process.env.SECRET_KEY);
+}
 stripe.products.create({
   name: 'Starter Subscription',
   description: '$15/Month subscription',
