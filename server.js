@@ -1,7 +1,15 @@
 // This is a public sample test API key.
 // Don’t submit any personally identifiable information in requests made with this key.
 // Sign in to see your own test API key embedded in code samples.
-const stripe = require('stripe')('sk_test_U68vkbnSn99gjqwhOQHA7TBx');
+require('dotenv').config();
+let stripe;
+if (process.env.NODE_ENV !== 'production') {
+  stripe = require('stripe')(process.env.TEST_KEY);
+} else {
+  stripe = require('stripe')(process.env.SECRET_KEY);
+}
+
+const e = require('express');
 const express = require('express');
 const app = express();
 app.use(express.static('public'));
