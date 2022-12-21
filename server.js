@@ -20,7 +20,6 @@ const YOUR_DOMAIN = "http://localhost:4242";
 app.post("/create-checkout-session", async (req, res) => {
   const prices = [];
   await stripe.prices.retrieve(req.body.lookup_key).then(async function (res) {
-    console.log(res);
     prices.push(res);
   });
   const session = await stripe.checkout.sessions.create({
@@ -40,7 +39,7 @@ app.post("/create-checkout-session", async (req, res) => {
   res.redirect(303, session.url);
 });
 
-app.get("/links", async (req, res) => {
+app.get("/products", async (req, res) => {
   const links = await stripe.paymentLinks.list({});
   const products = await stripe.products.list({});
   const prices = await stripe.prices.list({});
