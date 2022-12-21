@@ -8,7 +8,6 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
 const YOUR_DOMAIN = 'http://localhost:4242';
 
 app.post('/create-checkout-session', async (req, res) => {
@@ -63,9 +62,9 @@ app.get('/links', async (req, res) => {
   //       });
   // });
 
-  const links = await stripe.paymentLinks.list({ limit: 3,});
-  const products = await stripe.products.list({limit:3});
-  const prices = await stripe.prices.list({limit:3});
+  const links = await stripe.paymentLinks.list({});
+  const products = await stripe.products.list({});
+  const prices = await stripe.prices.list({});
   res.json({links: links.data, products: products.data, prices:prices.data});
 });
 
