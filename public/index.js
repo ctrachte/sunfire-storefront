@@ -72,6 +72,7 @@ const addToCart  = async (id, value = 1) => {
     } else {
         cart.push({price:id, quantity: value})
     }
+    updateCart();
 }
 // on uncheck, remove items from cart
 const removeFromCart  = async (id, value = 1) => {
@@ -85,4 +86,41 @@ const removeFromCart  = async (id, value = 1) => {
             cart.splice(i, 1);
         }
     }
+    updateCart();
+}
+
+// onchange of cart:
+
+const updateCart = ()=> {
+    // update cart total qty
+    let total = 0;
+    cart.map((item) => {
+        total+= parseInt(item.quantity);
+    });
+    document.getElementById('myCart_qty').innerHTML = total;
+    // create link and associate with cart button
+    createLink(cart);
+}
+
+async function createLink (cartObj) {
+    const options = {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(cartObj) // body data type must match "Content-Type" header
+      };
+    return await fetch('/create-link', options).then(async (res) =>{
+        let result = await res.json();
+        console.log(result)
+        document.getElementById('myCart').addEventListener('click', (e)=> {
+            window.location.href = result.url;
+        })
+     }).catch(err => console.error(err))
 }
